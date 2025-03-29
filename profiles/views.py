@@ -1,8 +1,10 @@
 from django.db.models import Count
 from rest_framework import generics, filters, permissions
+from django_filters.rest_framework import DjangoFilterBackend
 from bonsaiHive_P5.permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .serializers import ProfileSerializer
+
 
 class ProfileList(generics.ListAPIView):
     """
@@ -16,7 +18,11 @@ class ProfileList(generics.ListAPIView):
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'owner__following_followed__profile',
     ]
     ordering_fields = [
         'posts_count',
@@ -26,6 +32,7 @@ class ProfileList(generics.ListAPIView):
         'owner__followed__created_at',
     ]
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
