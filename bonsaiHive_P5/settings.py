@@ -117,7 +117,7 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 
-ROOT_URLCONF = 'drf-bonsaihive.urls'
+ROOT_URLCONF = 'bonsaiHive_P5.urls'
 
 TEMPLATES = [
     {
