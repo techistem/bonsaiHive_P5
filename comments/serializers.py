@@ -16,10 +16,10 @@ class CommentSerializer(serializers.ModelSerializer):
         return request.user == obj.owner
     
     def get_created_at(self, obj):
-        return naturaltime(obj.created_on)
+        return naturaltime(obj.created_at)
 
     def get_updated_at(self, obj):
-        return naturaltime(obj.updated_on)
+        return naturaltime(obj.updated_at)
 
     class Meta:
         model = Comment
