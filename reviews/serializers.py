@@ -30,7 +30,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "owner",
-            'artist',
+            "title",
             "is_owner",
             "profile_id",
             "profile_image",
