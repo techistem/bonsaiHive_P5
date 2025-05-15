@@ -1,15 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
-from artists.models import Artist
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Review(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    artist = models.ForeignKey(
-        Artist, on_delete=models.CASCADE, related_name='reviews'
-    )
+    owner = models.ForeignKey(User, on_delete=
+                              models.CASCADE, related_name='reviews')
+    title = models.CharField(max_length=255)
     content = models.TextField()
-    rating = models.IntegerField()
+    rating = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -17,4 +17,4 @@ class Review(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.owner}' review"
+        return f"{self.owner.username}'s review: {self.title}"
