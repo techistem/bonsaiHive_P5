@@ -2,6 +2,7 @@ from rest_framework import serializers
 from posts.models import Post
 from likes.models import Like
 from reviews.models import Review
+from django.db.models import Avg
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -17,6 +18,10 @@ class PostSerializer(serializers.ModelSerializer):
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
     review_id = serializers.SerializerMethodField()
+    average_rating = serializers.SerializerMethodField()
+    review_title = serializers.SerializerMethodField()
+    review_count = serializers.SerializerMethodField()
+    review_rating = serializers.SerializerMethodField()
 
     def validate_image(self, value):
         """
@@ -63,6 +68,31 @@ class PostSerializer(serializers.ModelSerializer):
             ).first()
             return review.id if review else None
         return None
+    
+    def get_review_title(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            review = Review.objects.filter(owner=user, post=obj).first()
+            return review.title if review else None
+        return None
+
+    def get_review_content(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            review = Review.objects.filter(owner=user, post=obj).first()
+            return review.content if review else None
+        return None
+
+    def get_review_rating(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            review = Review.objects.filter(owner=user, post=obj).first()
+            return review.rating if review else None
+        return None
+    
+    def get_average_rating(self, obj):
+        avg = obj.reviews.aggregate(Avg('rating'))['rating__avg']
+        return round(avg, 2) if avg else None
 
     class Meta:
         model = Post
@@ -71,5 +101,6 @@ class PostSerializer(serializers.ModelSerializer):
             'profile_image', 'created_at', 'updated_at',
             'title', 'content', 'image', 'image_filter',
             'like_id', 'likes_count', 'comments_count',
-            'review_id',
+            'review_id', 'average_rating',
+            'review_title', 'review_content', 'review_rating',
         ]
