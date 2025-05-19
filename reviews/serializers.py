@@ -8,6 +8,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     Serializer for the Review model
     Adds extra fields when returning a list of Comment instances
     """
+    post = serializers.ReadOnlyField(source="post.id")
     owner = serializers.ReadOnlyField(source="owner.username")
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
@@ -38,6 +39,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             "updated_at",
             "content",
             "rating",
+            "post",
         ]
 
 
