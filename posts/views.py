@@ -15,7 +15,8 @@ class PostList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Post.objects.annotate(
         likes_count=Count('likes', distinct=True),
-        comments_count=Count('comment', distinct=True)
+        comments_count=Count('comment', distinct=True),
+        average_rating=Avg('reviews__rating'),
     ).order_by('-created_at')
     filter_backends = [
         filters.OrderingFilter,
@@ -38,6 +39,7 @@ class PostList(generics.ListCreateAPIView):
         'likes_count',
         'comments_count',
         'likes__created_at',
+        'average_rating',
     ]
 
     def perform_create(self, serializer):
