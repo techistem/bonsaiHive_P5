@@ -11,10 +11,11 @@ class Review(models.Model):
         related_name='user_reviews'
     )
     post = models.ForeignKey(
-        Post,
-        on_delete=models.CASCADE,
+        'posts.Post',
+        on_delete=models.CASCADE, 
         related_name='reviews'
-    )
+        )
+
     title = models.CharField(max_length=255)
     content = models.TextField()
     rating = models.IntegerField(
