@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-from posts.models import Post 
+from posts.models import Post
 
 
 class Review(models.Model):
@@ -11,7 +11,7 @@ class Review(models.Model):
         related_name='user_reviews'
     )
     post = models.ForeignKey(
-        'posts.Post',
+        Post,
         on_delete=models.CASCADE,
         related_name='reviews'
         )

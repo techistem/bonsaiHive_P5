@@ -41,11 +41,11 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.id} {self.title}'
-    
+
     # Average score
     def average_rating(self):
         return self.reviews.aggregate(avg=Avg('rating'))['avg'] or 0
-    
+
     # Number of comments
     def reviews_count(self):
         return self.reviews.count()
