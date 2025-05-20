@@ -1,46 +1,22 @@
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
-from .models import Review
+from reviews.models import Review
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    """
-    Serializer for the Review model
-    Adds extra fields when returning a list of Comment instances
-    """
-    post = serializers.ReadOnlyField(source="post.id")
-    owner = serializers.ReadOnlyField(source="owner.username")
-    is_owner = serializers.SerializerMethodField()
-    profile_id = serializers.ReadOnlyField(source="owner.profile.id")
-    profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
-    created_at = serializers.SerializerMethodField()
-    updated_at = serializers.SerializerMethodField()
-
-    def get_is_owner(self, obj):
-        request = self.context["request"]
-        return request.user == obj.owner
-
-    def get_created_at(self, obj):
-        return naturaltime(obj.created_at)
-
-    def get_updated_at(self, obj):
-        return naturaltime(obj.updated_at)
+    owner_username = serializers.ReadOnlyField(source='owner.username')
+    owner_profile_id = serializers.ReadOnlyField(source='owner.profile.id')
+    owner_profile_image = serializers.ReadOnlyField(
+        source='owner.profile.image.url')
 
     class Meta:
         model = Review
         fields = [
-            "id",
-            "owner",
-            "title",
-            "is_owner",
-            "profile_id",
-            "profile_image",
-            "created_at",
-            "updated_at",
-            "content",
-            "rating",
-            "post",
+            'id', 'owner', 'owner_username', 'owner_profile_id',
+            'owner_profile_image', 'post', 'title', 'content',
+            'rating', 'created_at', 'updated_at'
         ]
+        read_only_fields = ['owner', 'created_at', 'updated_at']
 
 
 class ReviewDetailSerializer(ReviewSerializer):
