@@ -12,7 +12,7 @@ class Review(models.Model):
     )
     post = models.ForeignKey(
         'posts.Post',
-        on_delete=models.CASCADE, 
+        on_delete=models.CASCADE,
         related_name='reviews'
         )
 
