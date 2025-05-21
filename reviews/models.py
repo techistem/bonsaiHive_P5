@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-from posts.models import Post
 
 
 class Review(models.Model):
@@ -10,11 +9,6 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         related_name='user_reviews'
     )
-    post = models.ForeignKey(
-        Post,
-        on_delete=models.CASCADE,
-        related_name='reviews'
-        )
 
     title = models.CharField(max_length=255)
     content = models.TextField()
@@ -26,7 +20,6 @@ class Review(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
-        unique_together = ['owner', 'post']
 
     def __str__(self):
-        return f"{self.owner.username} {self.post.title}: {self.title}"
+        return f"{self.owner.username} : {self.title}"

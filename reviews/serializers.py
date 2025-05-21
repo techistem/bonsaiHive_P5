@@ -12,17 +12,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = [
             'id', 'owner', 'owner_username', 'owner_profile_id',
-            'owner_profile_image', 'post', 'title', 'content',
+            'owner_profile_image', 'title', 'content',
             'rating', 'created_at', 'updated_at'
         ]
         read_only_fields = ['owner', 'created_at', 'updated_at']
-
-
-class ReviewDetailSerializer(ReviewSerializer):
-    """
-    Serializer for the Comment model used in Detail view
-    Post is a read only field so that we dont have to set it on each update
-    """
-
-    class Meta(ReviewSerializer.Meta):
-        fields = ReviewSerializer.Meta.fields + ['post']
