@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Avg
+# from django.db.models import Avg
 
 
 class Post(models.Model):
@@ -43,9 +43,9 @@ class Post(models.Model):
         return f'{self.id} {self.title}'
 
     # Average score
-    def average_rating(self):
-        return self.reviews.aggregate(avg=Avg('rating'))['avg'] or 0
+    # def average_rating(self):
+        # return self.reviews.aggregate(avg=Avg('rating'))['avg'] or 0
 
     # Number of comments
-    def reviews_count(self):
-        return self.reviews.count()
+    # def reviews_count(self):
+        # return self.reviews.count()
