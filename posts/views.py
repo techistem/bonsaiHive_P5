@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Avg
 from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from bonsaiHive_P5.permissions import IsOwnerOrReadOnly
@@ -16,6 +16,7 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.annotate(
         likes_count=Count('likes', distinct=True),
         comments_count=Count('comment', distinct=True),
+        average_rating=Avg('reviews__rating'),
     ).order_by('-created_at')
     filter_backends = [
         filters.OrderingFilter,
@@ -38,6 +39,7 @@ class PostList(generics.ListCreateAPIView):
         'likes_count',
         'comments_count',
         'likes__created_at',
+        'average_rating',
     ]
 
     def perform_create(self, serializer):
