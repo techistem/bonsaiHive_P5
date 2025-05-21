@@ -45,7 +45,7 @@ class PostSerializer(serializers.ModelSerializer):
         """
         user = self.context.get('request').user
         if user and user.is_authenticated:
-            return Review.objects.filter(owner=user, post=obj).first()
+            return Review.objects.filter(owner=user).first()
         return None
 
     def get_review_id(self, obj):
