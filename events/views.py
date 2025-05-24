@@ -16,7 +16,7 @@ class EventList(generics.ListCreateAPIView):
         return Event.objects.filter(is_approved=True)
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(owner=self.request.user, is_approved=False)
 
 
 class EventDetail(generics.RetrieveUpdateDestroyAPIView):
