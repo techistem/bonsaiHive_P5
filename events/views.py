@@ -10,7 +10,7 @@ class EventList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['start_time', 'end_time', 'created_at', 'title']
-    ordering = ['start_time']  # Varsayılan sıralama
+    ordering = ['start_time']
 
     def get_queryset(self):
         return Event.objects.filter(is_approved=True)
