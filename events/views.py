@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, filters
 from .models import Event
 from .serializers import EventSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -8,9 +8,12 @@ from bonsaiHive_P5.permissions import IsOwnerOrReadOnly
 class EventList(generics.ListCreateAPIView):
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['start_time', 'end_time', 'created_at', 'title']
+    ordering = ['start_time']  # Varsayılan sıralama
 
     def get_queryset(self):
-        return Event.objects.filter(is_approved=True).order_by('-date')
+        return Event.objects.filter(is_approved=True)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
