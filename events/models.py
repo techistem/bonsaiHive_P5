@@ -7,8 +7,8 @@ class Event(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     location = models.CharField(max_length=255)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.DateTimeField(null=True, blank=True)
+    end_time = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
 
