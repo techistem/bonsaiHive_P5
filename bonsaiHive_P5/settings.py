@@ -205,6 +205,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'  # yorum satırı yaptım
+
 STORAGES = {
     "default": {
        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
