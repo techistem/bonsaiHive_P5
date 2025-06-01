@@ -65,7 +65,7 @@ DEBUG = "DEV" in os.environ
 
 ALLOWED_HOSTS = [
     'localhost',
-    '127.0.0.1', ''
+    '127.0.0.1',
     'drf-bonsaihive-91939050de59.herokuapp.com']
 
 # Application definition
@@ -198,20 +198,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'  # yorum satırı yaptım
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-STORAGES = {
-    "default": {
-       "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-       },
-    "staticfiles": {
-       "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-       },
-}
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
