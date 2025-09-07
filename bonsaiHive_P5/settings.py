@@ -66,7 +66,9 @@ DEBUG = "DEV" in os.environ
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'drf-bonsaihive-91939050de59.herokuapp.com']
+    'drf-bonsaihive-91939050de59.herokuapp.com',
+    'techistem.github.io'
+]
 
 # Application definition
 
@@ -112,16 +114,29 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        # os.environ.get('CLIENT_ORIGIN')
-        os.environ.get('CLIENT_ORIGIN_DEV'),
-        os.environ.get('CLIENT_ORIGIN'),
-        "http://localhost:3000",
-        "https://drf-bonsaihive-91939050de59.herokuapp.com"
-    ]
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://drf-bonsaihive-91939050de59.herokuapp.com",
+    "https://techistem.github.io"
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://techistem.github.io",
+    "https://drf-bonsaihive-91939050de59.herokuapp.com"
+]
+
+# Environment değişkenlerinden gelen domainleri ekle
+if 'CLIENT_ORIGIN' in os.environ:
+    origin = os.environ.get('CLIENT_ORIGIN')
+    CORS_ALLOWED_ORIGINS.append(origin)
+    CSRF_TRUSTED_ORIGINS.append(origin)
+
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    origin_dev = os.environ.get('CLIENT_ORIGIN_DEV')
+    CORS_ALLOWED_ORIGINS.append(origin_dev)
+    CSRF_TRUSTED_ORIGINS.append(origin_dev)
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'bonsaiHive_P5.urls'
 
@@ -197,7 +212,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type
