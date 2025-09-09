@@ -59,21 +59,15 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-#DEBUG = False
+DEBUG = False
 # DEBUG = True
 
-#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-#ALLOWED_HOSTS = [
-    #'localhost',
-    #'127.0.0.1',
-    #'drf-bonsaihive-91939050de59.herokuapp.com',
-    #'techistem.github.io'
-#]
 ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOST', 'localhost'),
+    'localhost',
     '127.0.0.1',
+    'drf-bonsaihive-91939050de59.herokuapp.com',
 ]
 
 # Application definition
@@ -237,7 +231,10 @@ STATICFILES_DIRS = [str(BASE_DIR / "static")]
 # WhiteNoise storage
 if DEBUG:
     # Development: simple storage
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+    STATICFILES_STORAGE = (
+        'django.contrib.staticfiles.storage.StaticFilesStorage'
+        )
+
 else:
     # Production: WhiteNoise compressed storage
     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
