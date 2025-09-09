@@ -59,15 +59,11 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
-
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
+    os.environ.get('ALLOWED_HOST'),
     'localhost',
-    '127.0.0.1',
-    'drf-bonsaihive-91939050de59.herokuapp.com',
 ]
 
 # Application definition
@@ -115,9 +111,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://drf-bonsaihive-91939050de59.herokuapp.com",
-    "https://techistem.github.io"
+    os.environ.get("CLIENT_ORIGIN")
 ]
 
 CSRF_TRUSTED_ORIGINS = [
