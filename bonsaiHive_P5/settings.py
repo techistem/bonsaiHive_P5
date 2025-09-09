@@ -48,11 +48,8 @@ JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
-
 REST_AUTH_SERIALIZERS = {
-  'USER_DETAILS_SERIALIZER': (
-     'bonsaiHive_P5.serializers.CurrentUserSerializer'
-    )
+  'USER_DETAILS_SERIALIZER': 'bonsaiHive_P5.serializers.CurrentUserSerializer'
 }
 
 # Quick-start development settings - unsuitable for production
@@ -62,16 +59,21 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+#DEBUG = False
 # DEBUG = True
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+#ALLOWED_HOSTS = [
+    #'localhost',
+    #'127.0.0.1',
+    #'drf-bonsaihive-91939050de59.herokuapp.com',
+    #'techistem.github.io'
+#]
 ALLOWED_HOSTS = [
-    'localhost',
+    os.environ.get('ALLOWED_HOST', 'localhost'),
     '127.0.0.1',
-    'drf-bonsaihive-91939050de59.herokuapp.com',
-    'techistem.github.io'
 ]
 
 # Application definition
@@ -129,7 +131,6 @@ CSRF_TRUSTED_ORIGINS = [
     "https://drf-bonsaihive-91939050de59.herokuapp.com"
 ]
 
-# Environment değişkenlerinden gelen domainleri ekle
 if 'CLIENT_ORIGIN' in os.environ:
     origin = os.environ.get('CLIENT_ORIGIN')
     CORS_ALLOWED_ORIGINS.append(origin)
