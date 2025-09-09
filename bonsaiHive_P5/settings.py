@@ -62,10 +62,10 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOST'),
-    'localhost',
+    os.environ.get('ALLOWED_HOST', 'localhost'),
+    '127.0.0.1',
+    'drf-bonsaihive-91939050de59.herokuapp.com',
 ]
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -110,9 +110,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = [
-    os.environ.get("CLIENT_ORIGIN")
-]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://techistem.github.io",
@@ -120,14 +117,14 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
-    origin = os.environ.get('CLIENT_ORIGIN')
-    CORS_ALLOWED_ORIGINS.append(origin)
-    CSRF_TRUSTED_ORIGINS.append(origin)
-
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
 if 'CLIENT_ORIGIN_DEV' in os.environ:
-    origin_dev = os.environ.get('CLIENT_ORIGIN_DEV')
-    CORS_ALLOWED_ORIGINS.append(origin_dev)
-    CSRF_TRUSTED_ORIGINS.append(origin_dev)
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN_DEV'),
+        os.environ.get('CLIENT_ORIGIN')
+    ]
 
 CORS_ALLOW_CREDENTIALS = True
 
