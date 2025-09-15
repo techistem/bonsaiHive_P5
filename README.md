@@ -65,3 +65,51 @@ The service is connected to both the API and the frontend via Heroku Config Vars
 
 A unique secret key was generated using a [Django Secret Key Generator](https://djecrety.ir/)
 and stored securely in the env.py file. This ensures that the key is kept private and is not exposed on GitHub or included in the deployed build.
+
+## Python Packages
+
+### Core Framework
+
+- **Django==4.2.7** – Main framework used to start the project
+- **djangorestframework==3.14.0** – Framework used to build the API endpoints
+- **django-filter==23.5** – Used to filter API results in serializers
+
+### Authentication & Authorization
+
+- **django-allauth==0.50.0** – Authentication, registration, account management
+- **dj-rest-auth==2.1.9** – REST API endpoints for authentication
+- **djangorestframework-simplejwt==5.3.1** – JWT authentication for DRF
+- **PyJWT==2.9.0** – JSON Web Token handling
+- **oauthlib==3.2.2** – Dependency for OAuth support
+- **requests-oauthlib==2.0.0** – Dependency for OAuth requests
+- **python3-openid==3.2.0** – Dependency for OpenID authentication
+
+### Database
+
+- **dj-database-url==2.3.0** – Parse the `DATABASE_URL` connection settings
+- **psycopg2==2.9.10** – PostgreSQL database adapter
+
+### Static & Media Files
+
+- **whitenoise==6.9.0** – Serve static files in production
+- **cloudinary==1.43.0** – Cloud storage for images
+- **django-cloudinary-storage==0.3.0** – Django integration with Cloudinary
+
+### Deployment & Utilities
+
+- **gunicorn==21.2.0** – WSGI HTTP server for deployment
+- **Pillow==11.1.0** – Imaging library, used for image uploads
+
+### Core Dependencies (installed automatically)
+
+- **asgiref==3.8.1** – ASGI framework support for Django
+- **sqlparse==0.5.3** – SQL parsing library (required by Django)
+
+#### Programs Used
+
+- [GitHub](https://github.com/) - To save and store files for the website.
+- [VSCode](https://code.visualstudio.com/) - Code editor used for local development.
+- [GitPod](https://gitpod.io/) - IDE used to create the site.
+- [DBdiagram](/https://dbdiagram.io/home) - To create database diagrams.
+- [Shields IO](https://shields.io/) - To add badges to README.
+- [Obsidian](https://code.visualstudio.com/) - To keep notes.
