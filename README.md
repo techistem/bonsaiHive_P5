@@ -347,3 +347,7 @@ pip3 freeze --local > requirements.txt
 - Search for the Github repository name.
 - Then click "connect".
 - Scroll down and click "Deploy Branch".
+
+## Testing
+
+Please see [Testing](TESTING.md)
