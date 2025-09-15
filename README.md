@@ -10,7 +10,7 @@ Deployed Frontend Heroku: [bonsaihive-react](https://bonsaihive-react-dbe9685329
 
 Backend Github [Repository](https://github.com/techistem/bonsaiHive_P5)
 
-Frontend Github [Repository] (https://github.com/techistem/bonsaihive-react)
+Frontend Github [Repository](https://github.com/techistem/bonsaihive-react)
 
 ## Contents
 
@@ -112,4 +112,238 @@ and stored securely in the env.py file. This ensures that the key is kept privat
 - [GitPod](https://gitpod.io/) - IDE used to create the site.
 - [DBdiagram](/https://dbdiagram.io/home) - To create database diagrams.
 - [Shields IO](https://shields.io/) - To add badges to README.
-- [Obsidian](https://code.visualstudio.com/) - To keep notes.
+
+## Cloning the Repository
+
+To clone the repository:
+
+1. Log in (or sign up) to GitHub.
+2. Go to the repository for this project: [bonsaiHive_P5](https://github.com/techistem/bonsaiHive_P5.git).
+3. Click on the **Code** button, select one of HTTPS, SSH, or GitHub CLI, and copy the link shown.
+4. Open the terminal in your code editor and navigate to the directory where you want the project to be cloned.
+5. Run the following command:
+
+   ```bash
+   git clone <repository-link>
+   ```
+
+### Deployment
+
+The finished program was initially hosted within a repository on Github, and then this Github repository was connected with Heroku, the site through which the program is deployed.
+
+### Deployment to Heroku
+
+The steps to deploy this project to **[Heroku](https://www.heroku.com/)** are as follows:
+
+- Create Heroku app
+
+  - Go to the [Heroku](https://www.heroku.com/) dashboard and click the "Create new app" button.
+  - Name the app. Each app name on Heroku has to be unique.
+  - Then select your region.
+  - And then click "Create app".
+
+- In the IDE file explorer or terminal
+
+  - Create new env.py file on top level directory
+
+- In env.py
+  - Import os library
+  - Set environment variables
+  - Add database url
+  - Add in secret key
+
+```python
+import os
+
+os.environ['DEV'] = '1'
+os.environ["DATABASE_URL"] = "Paste in ElephantSQL database URL"
+os.environ["SECRET_KEY"] = "Make up your own randomSecretKey"
+os.environ["CLOUDINARY_URL"] = "Paste in the API Environment variable"
+```
+
+If you don't already have an account to Cloudinary, create one [here](https://cloudinary.com/).
+
+- Cloudinary
+
+  - Go to the Cloudinary dashboard and copy the API Environment variable.
+  - Paste in env.py variable CLOUDINARY_URL(see above)
+
+- In settings.py and to the INSTALLED_APPS add :
+
+```python
+'cloudinary_storage',
+'django.contrib.staticfiles',
+'cloudinary',
+'rest_framework',
+'django_filters',
+'rest_framework.authtoken',
+'dj_rest_auth',
+'django.contrib.sites',
+'allauth',
+'allauth.account',
+'allauth.socialaccount',
+'dj_rest_auth.registration',
+'corsheaders',
+```
+
+- Import the database, the regular expression module & the env.py
+
+```python
+import dj_database_url
+import re
+import os
+if os.path.exists('env.py'):
+    import env
+Below the import statements, add the following variable for Cloudinary:
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+}
+
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+```
+
+- Below INSTALLED_APPS, set site ID:
+
+```python
+SITE_ID = 1
+```
+
+- Below BASE_DIR, create the REST_FRAMEWORK, and include page pagination to improve app loading times, pagination count, and date/time format:
+
+```python
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication'
+        if 'DEV' in os.environ else
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%d %b %Y',
+}
+```
+
+- Set the default renderer to JSON:
+
+```python
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+```
+
+- Beneath that, add the following:
+
+```python
+REST_USE_JWT = True
+JWT_AUTH_SECURE = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
+```
+
+- Then add:
+
+```python
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'project_name.serializers.CurrentUserSerializer'
+}
+```
+
+- Update DEBUG variable to:
+
+```python
+DEBUG = 'DEV' in os.environ
+```
+
+- Update the DATABASES variable to:
+
+```python
+DATABASES = {
+    'default': ({
+       'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    } if 'DEV' in os.environ else dj_database_url.parse(
+        os.environ.get('DATABASE_URL')
+    )
+    )
+}
+```
+
+- Add the Heroku app to the ALLOWED_HOSTS variable:
+
+```python
+ALLOWED_HOSTS = [
+    os.environ.get('ALLOWED_HOST'),
+    'localhost',
+]
+```
+
+- Below ALLOWED_HOST, add the CORS_ALLOWED variable:
+
+```python
+if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
+
+if "CLIENT_ORIGIN_DEV" in os.environ:
+    extracted_url = re.match(
+        r"^.+-", os.environ.get("CLIENT_ORIGIN_DEV", ""), re.IGNORECASE
+    )
+```
+
+- Also add to the top of MIDDLEWARE:
+
+```python
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    ...
+]
+```
+
+Final requirements:
+
+- Create a Procfile, & add the following two lines:
+
+```text
+release: python manage.py makemigrations && python manage.py migrate
+web: gunicorn project_name.wsgi
+```
+
+- Migrate the database:
+
+```text
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
+
+- Freeze requirements:
+
+```text
+pip3 freeze --local > requirements.txt
+```
+
+- In heroku app
+  - Go to the settings tab.
+  - In the settings click the button "Reveal Config Vars".
+  - Click Add and use
+
+| KEY               | VALUE                                             |
+| ----------------- | ------------------------------------------------- |
+| DATABASE_URL      | Paste in ElephantSQL database URL                 |
+| SECRET_KEY        | Your own randomSecretKey                          |
+| CLOUDINARY_URL    | Paste in the API Environment variable             |
+| ALLOWED HOST      | api-app-name.herokuapp.com                        |
+| CLIENT_ORIGIN     | <https://your-react-app-name.herokuapp.com>\*     |
+| CLIENT_ORIGIN_DEV | <https://gitpod-browser-link.ws-eu54.gitpod.io>\* |
+
+    *Check that the trailing slash \ at the end of both links has been removed.
+
+- Go to the deploy tab.
+- Choose the deployment method.
+- Select Github, and confirm to connect to Github.
+- Search for the Github repository name.
+- Then click "connect".
+- Scroll down and click "Deploy Branch".
