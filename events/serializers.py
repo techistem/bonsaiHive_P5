@@ -5,6 +5,11 @@ from .models import Event
 class EventSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
+    start_time = serializers.DateTimeField(
+        format="%Y-%m-%d %H:%M", input_formats=['%Y-%m-%d %H:%M'])
+    end_time = serializers.DateTimeField(
+        format="%Y-%m-%d %H:%M", input_formats=['%Y-%m-%d %H:%M'])
+
     def validate(self, data):
         start = data.get('start_time')
         end = data.get('end_time')
