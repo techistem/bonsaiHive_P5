@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions
-from bonsaiHive_P5.permissions import IsOwnerOrReadOnly
+# from bonsaiHive_P5.permissions import IsOwnerOrReadOnly
 from .models import Contact
 from .serializers import ContactSerializer
 
