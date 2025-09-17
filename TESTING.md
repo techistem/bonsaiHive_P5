@@ -78,3 +78,5 @@ Screenshots of the Flake8 output are included below.
 | 37  | /reviews                       | POST   | Create a new review   | ✅        |
 | 38  | /reviews/:id                   | PUT    | Update own review     | ✅        |
 | 39  | /reviews/:id                   | DELETE | Delete own review     | ✅        |
+
+## BUGS
