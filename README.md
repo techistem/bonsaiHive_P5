@@ -1,5 +1,9 @@
 # bonsaiHive_P5
 
+This is the backend service used by the [bonsaiHive_P5](https://bonsaihive-react-dbe9685329cb.herokuapp.com/)
+
+The purpose of the [bonsaiHive_P5 Django REST Framework API](https://xxxxxx-ba0d580957dc.herokuapp.com/admin/) is to serve as the backend system that interacts with the React frontend, allowing users to manage application data by creating, reading, updating, and deleting records.
+
 BonsaiHive Backend is the backbone of the BonsaiHive community platform, powering the features that bring bonsai enthusiasts together. While the frontend creates the interactive experience, the backend manages all the behind-the-scenes work — securely handling posts, profiles, comments, contacts, events, followers, likes, and reviews.
 
 It ensures that only registered members can access content, allows users to create, update, and delete their contributions, and keeps all data organized and reliable. By providing a smooth and secure API for the frontend, the backend enables BonsaiHive to grow both bonsai knowledge and a connected, engaged community across West Sussex.
@@ -12,10 +16,11 @@ Backend Github [Repository](https://github.com/techistem/bonsaiHive_P5)
 
 Frontend Github [Repository](https://github.com/techistem/bonsaihive-react)
 
-## Contents
+![Screenshot of deployed api admin panel](docs/readme-images/drf-api-admin.png)
 
 ## Contents
 
+- [Planing]
 - [Database Diagram](#database-diagram)
 - [Technologies Used](#technologies-used)
   - [Languages Used](#languages-used)
