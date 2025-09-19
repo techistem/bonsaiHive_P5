@@ -2,7 +2,7 @@
 
 This is the backend service used by the [bonsaiHive_P5](https://bonsaihive-react-dbe9685329cb.herokuapp.com/)
 
-The purpose of the [bonsaiHive_P5 Django REST Framework API](https://xxxxxx-ba0d580957dc.herokuapp.com/admin/) is to serve as the backend system that interacts with the React frontend, allowing users to manage application data by creating, reading, updating, and deleting records.
+The purpose of the [bonsaiHive_P5 Django REST Framework API](https://drf-bonsaihive-91939050de59.herokuapp.com/) is to serve as the backend system that interacts with the React frontend, allowing users to manage application data by creating, reading, updating, and deleting records.
 
 BonsaiHive Backend is the backbone of the BonsaiHive community platform, powering the features that bring bonsai enthusiasts together. While the frontend creates the interactive experience, the backend manages all the behind-the-scenes work — securely handling posts, profiles, comments, contacts, events, followers, likes, and reviews.
 
@@ -65,11 +65,6 @@ The database is linked to both the API and the frontend interface through Heroku
 Cloudinary was used to store all images uploaded to the site, such as user profile pictures and post images.
 
 The service is connected to both the API and the frontend via Heroku Config Vars. To ensure sensitive information is kept secure and not exposed on GitHub, the Cloudinary URL is stored in an env.py file, which is excluded from the deployment build.
-
-### Secret Key
-
-A unique secret key was generated using a [Django Secret Key Generator](https://djecrety.ir/)
-and stored securely in the env.py file. This ensures that the key is kept private and is not exposed on GitHub or included in the deployed build.
 
 ## Python Packages
 
