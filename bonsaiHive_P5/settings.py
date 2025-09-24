@@ -74,13 +74,13 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'cloudinary_storage',
-    'django.contrib.staticfiles',
     'cloudinary',
     'rest_framework',
     'django_filters',
@@ -92,7 +92,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth.registration',
     'corsheaders',
-
     'profiles',
     'posts',
     'comments',
@@ -225,15 +224,7 @@ STATICFILES_DIRS = [
 ]
 
 # WhiteNoise storage
-# if DEBUG:
-#     # Development: simple storage
-#     STATICFILES_STORAGE = (
-#         'django.contrib.staticfiles.storage.StaticFilesStorage'
-#     )
-
-# else:
-    # Production: WhiteNoise compressed storage
-    # STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/default-auto-field
