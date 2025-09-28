@@ -80,3 +80,12 @@ Screenshots of the Flake8 output are included below.
 | 39  | /reviews/:id                   | DELETE | Delete own review     | ✅        |
 
 ## BUGS
+
+**Issue:**
+Running python manage.py collectstatic --noinput fails locally (e.g., in VSCode) and prevents deployment on Heroku.
+
+**Cause:**
+The problem was due to the order of apps in settings.py. Whitenoise needed to be listed before django.contrib.admin.
+
+**Solution:**
+Reorder the apps in settings.py so that Whitenoise comes before the admin app. After this change, collectstatic --noinput works both locally and on Heroku.
