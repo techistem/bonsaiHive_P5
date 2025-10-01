@@ -1,6 +1,6 @@
 # Contents
 
-- [PEP8 & Flake8 Validation](#pep8--Flake8--validation)
+- [PEP8 & Flake8 Validation](#pep8--flake8-validation)
 - [Manual Testing](#manual-testing)
 - [Bugs](#bugs)
 
