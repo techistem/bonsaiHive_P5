@@ -20,16 +20,9 @@ Frontend Github [Repository](https://github.com/techistem/bonsaihive-react)
 
 ## Contents
 
-- [Planing]
 - [Database Diagram](#database-diagram)
-- [Technologies Used](#technologies-used)
-  - [Languages Used](#languages-used)
-  - [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used)
-- [Deployment and Local Development](#deployment-and-local-development)
-  - [Local Development](#local-development)
-    - [How to fork](#how-to-fork)
-    - [How to clone](#how-to-clone)
-    - [Deployment](#deployment)
+- [Technologies](#technologies)
+- [Deployment](#deployment)
 - [Testing](#testing)
 - [Credits](#credits)
 
@@ -39,7 +32,7 @@ I have created tasks and included links to the [GitHub Issues](?????) for this p
 
 ## Database Diagram
 
-[Database Diagram](?????)
+[Database Diagram](docs/readme-images/db_diagram.png)
 
 ## Technologies
 
