@@ -28,7 +28,7 @@ Frontend Github [Repository](https://github.com/techistem/bonsaihive-react)
 
 ### User Stories
 
-I have created tasks and included links to the [GitHub Issues](?????) for this project, as well as the [KANBAN board](??????).
+I have created tasks and included links to the [GitHub Issues](https://github.com/techistem/bonsaihive-react/issues) for this project, as well as the [KANBAN board](https://github.com/users/techistem/projects/20).
 
 ## Database Diagram
 
