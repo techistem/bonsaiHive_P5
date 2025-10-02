@@ -89,3 +89,37 @@ The problem was due to the order of apps in settings.py. Whitenoise needed to be
 
 **Solution:**
 Reorder the apps in settings.py so that Whitenoise comes before the admin app. After this change, collectstatic --noinput works both locally and on Heroku.
+
+---
+
+**Issue:**  
+The frontend was unable to communicate with the backend due to CORS policy restrictions. This resulted in:
+
+- Sign-in and sign-up forms not working
+- Contact form submissions having no effect
+- Reviews and other API requests failing to load
+
+Error message shown in the browser console:  
+When trying to make requests from the frontend to the backend, the browser console displayed a CORS-related error message indicating that the request was blocked due to missing 'Access-Control-Allow-Origin' headers.
+
+**Cause:**  
+The backend CORS configuration did not allow requests from the deployed frontend domain.
+
+**Solution:**
+
+- Added `django-cors-headers` to the project and included it in `MIDDLEWARE`.
+- Updated `settings.py` to read allowed origins from environment variables:
+
+  ```python
+  if "CLIENT_ORIGIN" in os.environ:
+      allowed_origins = list(filter(None, [
+          os.environ.get("CLIENT_ORIGIN"),
+          os.environ.get("CLIENT_ORIGIN_CUSTOM_DOMAIN")
+      ]))
+      CORS_ALLOWED_ORIGINS.extend(allowed_origins)
+  ```
+
+Configured Heroku (or environment) variables with the frontend URLs for both production and development environments:
+
+- `CLIENT_ORIGIN` = your deployed frontend URL
+- `CLIENT_ORIGIN_DEV` = your local frontend URL (development)
