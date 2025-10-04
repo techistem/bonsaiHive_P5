@@ -36,6 +36,8 @@ Screenshots of the Flake8 output are included below.
 
 ![Screenshot of flake8 validation for reviews app](docs/readme-images/flake8-reviews.png)
 
+<a href="#top">Back to the top</a>
+
 ## Manual Testing
 
 | #   | Endpoint                       | Method | Expected outcome      | Pass/Fail |
@@ -78,6 +80,8 @@ Screenshots of the Flake8 output are included below.
 | 37  | /reviews                       | POST   | Create a new review   | ✅        |
 | 38  | /reviews/:id                   | PUT    | Update own review     | ✅        |
 | 39  | /reviews/:id                   | DELETE | Delete own review     | ✅        |
+
+<a href="#top">Back to the top</a>
 
 ## BUGS
 
@@ -123,3 +127,5 @@ Configured Heroku (or environment) variables with the frontend URLs for both pro
 
 - `CLIENT_ORIGIN` = your deployed frontend URL
 - `CLIENT_ORIGIN_DEV` = your local frontend URL (development)
+
+<a href="#top">Back to the top</a>

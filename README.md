@@ -344,3 +344,19 @@ pip3 freeze --local > requirements.txt
 ## Testing
 
 Please see [Testing](TESTING.md)
+
+## Credits
+
+### Code Used
+
+[Code Institute's](https://codeinstitute.net/) - Walkthrough project Django REST Framework
+
+[Bootstrap Docs](https://react-bootstrap-v4.netlify.app/components/forms/#forms-custom-select) for dropdown select styling.
+
+[Django Documentation](https://docs.djangoproject.com/) - Used for understanding models, forms, and image uploads.
+
+[React Docs](https://react.dev/) - Used for handling state, props, and conditional rendering.
+
+[Stack Overflow discussion](https://stackoverflow.com/) - Guidance on handling multiple file uploads in React forms.
+
+<a href="#top">Back to the top</a>
